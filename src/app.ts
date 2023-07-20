@@ -165,7 +165,7 @@ app.delete("/videos/:id", (req: RequestWithParams <{id: number}>, res: Response)
     }
 })
 
-app.delete("/__test__/data", (req: Request, res: Response) => {
+app.delete("/testing/all-data", (req: Request, res: Response) => {
     videos = [];
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
 })

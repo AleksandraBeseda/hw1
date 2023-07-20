@@ -30,7 +30,7 @@ const invalidResolutionObj = {
 describe("/videos", () => {
 
     beforeAll(async() => {
-        await request(app).delete('/__test__/data');
+        await request(app).delete('/testing/all-data');
      });
 
      it("should return empty array", async () => {
@@ -168,7 +168,7 @@ describe("/videos", () => {
        it(`should delete all videos`, async() => {
 
         await request(app)
-         .delete(`/__test__/data`)
+         .delete(`/testing/all-data`)
          .expect(HTTP_STATUSES.NO_CONTENT_204);
          
          await request(app)
