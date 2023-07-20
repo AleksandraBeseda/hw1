@@ -133,7 +133,7 @@ describe("/videos", () => {
       title: "", 
       author: "Veronika Bluuuuzz",
       availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
-      canBeDownloaded: true,
+      canBeDownloaded: false,
       minAgeRestriction: 11,
       publicationDate: publicationDate,
       };
@@ -142,7 +142,7 @@ describe("/videos", () => {
       title: "QmateFuc", 
       author: "",
       availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
-      canBeDownloaded: true,
+      canBeDownloaded: false,
       minAgeRestriction: 11,
       publicationDate: publicationDate,
     };
@@ -150,7 +150,7 @@ describe("/videos", () => {
     let updateBodyWithCorrectData = {
       title: "Andreas", 
       author: "Konstantin Michaelis",
-      canBeDownloaded: true,
+      canBeDownloaded: false,
       minAgeRestriction: 11,
       publicationDate: publicationDate,
       availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
