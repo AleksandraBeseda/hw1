@@ -108,7 +108,7 @@ app.post("/videos", (req: RequestWithBody<{ title: string, author: string, avail
         canBeDownloaded: false,
         minAgeRestriction: null,
         createdAt: createdAt.toISOString(),
-        publicationDate: createdAt.toISOString(),
+        publicationDate: publicationDate.toISOString(),
         title,
         author,
         availableResolutions
