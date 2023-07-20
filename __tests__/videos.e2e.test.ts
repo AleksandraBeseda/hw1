@@ -150,7 +150,7 @@ describe("/videos", () => {
     let updateBodyWithCorrectData = {
       title: "Andreas", 
       author: "Konstantin Michaelis",
-      canBeDownloaded: true,
+      canBeDownloaded: false,
       minAgeRestriction: 11,
       publicationDate: publicationDate,
       availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 

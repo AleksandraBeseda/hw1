@@ -159,6 +159,10 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, UpdateVideoT
     if (typeof canBeDownloaded !== "boolean"){
         errors.errorsMessages.push({message: "Invalid canBeDownloaded", field: "canBeDownloaded"})
     };
+
+    if (typeof publicationDate !== "string"){
+        errors.errorsMessages.push({message: "Invalid publicationDate", field: "publicationDate"})
+    };
     if (Array.isArray(availableResolutions)){
         availableResolutions.map(resolut => {
             !AvailableResolutions[resolut] && errors.errorsMessages.push({
