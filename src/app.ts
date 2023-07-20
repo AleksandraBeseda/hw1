@@ -31,13 +31,13 @@ type VideoType = {
     availableResolutions: AvailableResolutions []
 }
 
-type ErrorMessageType = {
+type ErrorsMessageType = {
     messsage: string;
     field: string
 }
 
 type ErrorType = {
-    errorMessages: ErrorMessageType []
+    errorsMessages: ErrorsMessageType []
 }
 
 let videos: VideoType [] = [
@@ -72,20 +72,20 @@ app.get('/videos/:id', (req: RequestWithParams <{id: number}>, res: Response) =>
 app.post("/videos", (req: RequestWithBody<{ title: string, author: string, availableResolutions: AvailableResolutions[]}>, res: Response)=> {
     //errors validation
     let errors: ErrorType = {
-        errorMessages: []
+        errorsMessages: []
     };
 
     let {title, author, availableResolutions} = req.body;
 
     if (!title || !title.length || title.trim().length > 40){
-        errors.errorMessages.push({messsage: "Invalid title", field: "title"})
+        errors.errorsMessages.push({messsage: "Invalid title", field: "title"})
     };
     if (!author || !author.length || author.trim().length > 20){
-        errors.errorMessages.push({messsage: "Invalid author", field: "author"})
+        errors.errorsMessages.push({messsage: "Invalid author", field: "author"})
     };
     if (Array.isArray(availableResolutions)){
         availableResolutions.map(resolut => {
-            !AvailableResolutions[resolut] && errors.errorMessages.push({
+            !AvailableResolutions[resolut] && errors.errorsMessages.push({
                 messsage: "Invalid availableResolutions",
                 field: "availableResolutions"
             })
@@ -94,7 +94,7 @@ app.post("/videos", (req: RequestWithBody<{ title: string, author: string, avail
         availableResolutions = [];
     }
 
-    if(errors.errorMessages.length){
+    if(errors.errorsMessages.length){
         res.status(HTTP_STATUSES.BAD_REQUEST_400).send(errors);
         return;
     }
@@ -131,16 +131,16 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: str
 
     //errors validation
     let errors: ErrorType = {
-        errorMessages: []
+        errorsMessages: []
     };
     if (!title || !title.length || title.trim().length > 40){
-        errors.errorMessages.push({messsage: "Invalid title", field: "title"})
+        errors.errorsMessages.push({messsage: "Invalid title", field: "title"})
     };
     if (!author || !author.length || author.trim().length > 20){
-        errors.errorMessages.push({messsage: "Invalid author", field: "author"})
+        errors.errorsMessages.push({messsage: "Invalid author", field: "author"})
     };
 
-    if(errors.errorMessages.length){
+    if(errors.errorsMessages.length){
         res.status(HTTP_STATUSES.BAD_REQUEST_400).send(errors);
         return;
     }

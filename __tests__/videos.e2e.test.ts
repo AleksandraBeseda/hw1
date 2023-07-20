@@ -3,7 +3,7 @@ import { AvailableResolutions, app } from "../src/app";
 import { HTTP_STATUSES } from "../src/utils";
 
 const invalidTitleObj = {
-  "errorMessages": [
+  "errorsMessages": [
       {
           "messsage": "Invalid title",
           "field": "title"
@@ -11,7 +11,7 @@ const invalidTitleObj = {
   ]
 };
 const invalidAuthorObj = {
-  "errorMessages": [
+  "errorsMessages": [
       {
           "messsage": "Invalid author",
           "field": "author"
@@ -19,7 +19,7 @@ const invalidAuthorObj = {
   ]
 };
 const invalidResolutionObj = {
-  "errorMessages": [
+  "errorsMessages": [
       {
           "messsage": "Invalid availableResolutions",
           "field": "availableResolutions"
