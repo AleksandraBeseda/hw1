@@ -29,16 +29,25 @@ type VideoType = {
     createdAt: string,
     publicationDate: string,
     availableResolutions: AvailableResolutions []
-}
+};
+
+export type UpdateVideoType = {
+    title: string, 
+    author: string,
+    availableResolutions: AvailableResolutions[], 
+    canBeDownloaded: boolean,
+    minAgeRestriction: number
+    publicationDate: string,
+};
 
 type ErrorsMessageType = {
     message: string;
     field: string
-}
+};
 
 type ErrorType = {
     errorsMessages: ErrorsMessageType []
-}
+};
 
 let videos: VideoType [] = [
     {
@@ -118,7 +127,7 @@ app.post("/videos", (req: RequestWithBody<{ title: string, author: string, avail
     res.status(HTTP_STATUSES.CREATED_201).send(newVideo);
 })
 
-app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: string, author: string }>, res: Response) =>{
+app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, UpdateVideoType>, res: Response) =>{
     const id = +req.params.id;
     let foundVideo = videos.find(v => v.id === id);
 
@@ -127,7 +136,12 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: str
         return;
     };//check if such video doesn t exist
 
-    const {title, author} = req.body;
+    let {title, 
+        author, 
+        availableResolutions, 
+        canBeDownloaded, 
+        minAgeRestriction, 
+        publicationDate} = req.body;
 
     //errors validation
     let errors: ErrorType = {
@@ -139,6 +153,19 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: str
     if (!author || !author.length || author.trim().length > 20){
         errors.errorsMessages.push({message: "Invalid author", field: "author"})
     };
+    if (minAgeRestriction < 1 || minAgeRestriction > 18){
+        errors.errorsMessages.push({message: "Invalid minAgeRestriction", field: "minAgeRestriction"})
+    };
+    if (Array.isArray(availableResolutions)){
+        availableResolutions.map(resolut => {
+            !AvailableResolutions[resolut] && errors.errorsMessages.push({
+                message: "Invalid availableResolutions",
+                field: "availableResolutions"
+            })
+        })
+    } else {
+        availableResolutions = [];
+    }
 
     if(errors.errorsMessages.length){
         res.status(HTTP_STATUSES.BAD_REQUEST_400).send(errors);
@@ -149,6 +176,10 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: str
     if (foundVideo){
     foundVideo.title = title;
     foundVideo.author = author;
+    foundVideo.availableResolutions = availableResolutions;
+    foundVideo.canBeDownloaded = canBeDownloaded;
+    foundVideo.minAgeRestriction = minAgeRestriction;
+    foundVideo.publicationDate = publicationDate;
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);   
     }
      

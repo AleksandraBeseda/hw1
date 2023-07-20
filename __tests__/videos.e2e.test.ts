@@ -125,28 +125,56 @@ describe("/videos", () => {
         .expect(HTTP_STATUSES.NOT_FOUND_404);   
       }); 
 
+      const createdAt: Date = new Date();
+      const publicationDate = new Date();
+      publicationDate.setDate(createdAt.getDate()+1);
+
+    let updateBodyWithIncorrectTitle = {
+      title: "", 
+      author: "Veronika Bluuuuzz",
+      availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
+      canBeDownloaded: true,
+      minAgeRestriction: 11,
+      publicationDate: publicationDate,
+      };
+
+    let updateBodyWithIncorrectAuthor = {
+      title: "QmateFuc", 
+      author: "",
+      availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
+      canBeDownloaded: true,
+      minAgeRestriction: 11,
+      publicationDate: publicationDate,
+    };
+
+    let updateBodyWithCorrectData = {
+      title: "Andreas", 
+      author: "Konstantin Michaelis",
+      canBeDownloaded: true,
+      minAgeRestriction: 11,
+      publicationDate: publicationDate,
+      availableResolutions: [AvailableResolutions.P144, AvailableResolutions.P2160], 
+    };
+
       it(`shouldn't update video because title is wrong`, async() => {
         await request(app)
          .put(`/videos/` + createdVideo1.id)
-         .send({title: "", author: "Veronika Bluuuuzz"})
+         .send(updateBodyWithIncorrectTitle)
          .expect(HTTP_STATUSES.BAD_REQUEST_400, invalidTitleObj);   
        }); 
 
        it(`shouldn't update video because author is wrong`, async() => {
         await request(app)
          .put(`/videos/` + createdVideo1.id)
-         .send({title: "Andreas", author: ""})
+         .send(updateBodyWithIncorrectAuthor)
          .expect(HTTP_STATUSES.BAD_REQUEST_400, invalidAuthorObj);   
        }); 
 
        it(`should update video `, async() => {
-        const newTitle = "Andreas";
-        const newAuthor = "Konstantin Michaelis";
-
         await request(app)
          .put(`/videos/` + createdVideo1.id)
-         .send({title: newTitle, author: newAuthor})
-         .expect(HTTP_STATUSES.NO_CONTENT_204);   
+         .send(updateBodyWithCorrectData)
+         .expect(HTTP_STATUSES.NO_CONTENT_204);
        });
 
        it(`should delete video by id`, async() => {
@@ -174,6 +202,6 @@ describe("/videos", () => {
          await request(app)
          .get(`/videos/`)
          .expect(HTTP_STATUSES.OK_200), [];
-
        });
+
   });
