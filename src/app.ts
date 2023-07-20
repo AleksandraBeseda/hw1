@@ -32,7 +32,7 @@ type VideoType = {
 }
 
 type ErrorsMessageType = {
-    messsage: string;
+    message: string;
     field: string
 }
 
@@ -78,15 +78,15 @@ app.post("/videos", (req: RequestWithBody<{ title: string, author: string, avail
     let {title, author, availableResolutions} = req.body;
 
     if (!title || !title.length || title.trim().length > 40){
-        errors.errorsMessages.push({messsage: "Invalid title", field: "title"})
+        errors.errorsMessages.push({message: "Invalid title", field: "title"})
     };
     if (!author || !author.length || author.trim().length > 20){
-        errors.errorsMessages.push({messsage: "Invalid author", field: "author"})
+        errors.errorsMessages.push({message: "Invalid author", field: "author"})
     };
     if (Array.isArray(availableResolutions)){
         availableResolutions.map(resolut => {
             !AvailableResolutions[resolut] && errors.errorsMessages.push({
-                messsage: "Invalid availableResolutions",
+                message: "Invalid availableResolutions",
                 field: "availableResolutions"
             })
         })
@@ -134,10 +134,10 @@ app.put("/videos/:id", (req: RequestWithBodyAndParams<{id: number}, { title: str
         errorsMessages: []
     };
     if (!title || !title.length || title.trim().length > 40){
-        errors.errorsMessages.push({messsage: "Invalid title", field: "title"})
+        errors.errorsMessages.push({message: "Invalid title", field: "title"})
     };
     if (!author || !author.length || author.trim().length > 20){
-        errors.errorsMessages.push({messsage: "Invalid author", field: "author"})
+        errors.errorsMessages.push({message: "Invalid author", field: "author"})
     };
 
     if(errors.errorsMessages.length){

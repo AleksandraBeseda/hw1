@@ -5,7 +5,7 @@ import { HTTP_STATUSES } from "../src/utils";
 const invalidTitleObj = {
   "errorsMessages": [
       {
-          "messsage": "Invalid title",
+          "message": "Invalid title",
           "field": "title"
       }
   ]
@@ -13,7 +13,7 @@ const invalidTitleObj = {
 const invalidAuthorObj = {
   "errorsMessages": [
       {
-          "messsage": "Invalid author",
+          "message": "Invalid author",
           "field": "author"
       }
   ]
@@ -21,7 +21,7 @@ const invalidAuthorObj = {
 const invalidResolutionObj = {
   "errorsMessages": [
       {
-          "messsage": "Invalid availableResolutions",
+          "message": "Invalid availableResolutions",
           "field": "availableResolutions"
       }
   ]
